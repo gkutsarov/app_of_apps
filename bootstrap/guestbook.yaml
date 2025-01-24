@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/argoproj/argocd-example-apps.git # Official example repo
+    targetRevision: HEAD # The branch or commit to track
+    path: guestbook # Subdirectory containing the app manifests
+  destination:
+    server: https://kubernetes.default.svc # In-cluster Kubernetes API
+    namespace: guestbook
+  syncPolicy:
+    automated:
+      prune: true # Removes deleted resources
+      selfHeal: true # Fixes drift automatically
+
