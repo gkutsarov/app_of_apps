@@ -16,4 +16,4 @@ spec:
     automated:
       prune: true # Removes deleted resources
       selfHeal: true # Fixes drift automatically
-
+  createNamespace: true
