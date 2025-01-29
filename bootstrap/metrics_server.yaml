@@ -16,7 +16,7 @@ spec:
       ref: app_of_apps
   destination:
     server: https://kubernetes.default.svc
-    namespace: metrics_server
+    namespace: metrics-server
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
