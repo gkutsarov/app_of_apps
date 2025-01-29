@@ -41,16 +41,4 @@ spec:
         automated:
           prune: true
           selfHeal: true
-    - name: my_app
-      source:
-        repoURL: https://github.com/gkutsarov/app_of_apps
-        targetRevision: main
-        path: my_app
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: my_app
-      syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
 

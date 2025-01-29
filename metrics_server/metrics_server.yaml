@@ -13,7 +13,7 @@ spec:
       valuesFile: values.yaml  # Point to the values file here
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: metrics_server
   syncPolicy:
     automated:
       prune: true
