@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/argoproj/argocd-example-apps.git # Official example repo
-    targetRevision: HEAD # The branch or commit to track
+    targetRevision: main # The branch or commit to track
     path: guestbook # Subdirectory containing the app manifests
   destination:
     server: https://kubernetes.default.svc # In-cluster Kubernetes API
