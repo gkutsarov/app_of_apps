@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: my_app
+  name: my-app
   namespace: argocd
 spec:
   project: default
@@ -11,7 +11,7 @@ spec:
       chart: k8s-resources
   destination:
     server: https://kubernetes.default.svc
-    namespace: my_app
+    namespace: my-app
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
