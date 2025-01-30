@@ -10,7 +10,7 @@ spec:
       targetRevision: 3.10.0
       chart: metrics-server
       helm:
-        valuesFile: $app_of_apps/metrics_server/values.yaml  # Point to the values file here
+        valuesFile: ../metrics_server/values.yaml  # Point to the values file here
   destination:
     server: https://kubernetes.default.svc
     namespace: metrics-server
