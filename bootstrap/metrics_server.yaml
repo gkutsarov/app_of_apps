@@ -11,9 +11,6 @@ spec:
       chart: metrics-server
       helm:
         valuesFile: $app_of_apps/metrics_server/values.yaml  # Point to the values file here
-    - repoURL: https://github.com/gkutsarov/app_of_apps
-      targetRevision: main
-      ref: app_of_apps
   destination:
     server: https://kubernetes.default.svc
     namespace: metrics-server
