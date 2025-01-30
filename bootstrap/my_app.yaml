@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   sources:
-    - repoURL: https://github.com/gkutsarov/app_of_apps/my_app
+    - repoURL: https://github.com/gkutsarov/app_of_apps/my_app/
       targetRevision: 1.0.0
       chart: k8s-resources
   destination:
