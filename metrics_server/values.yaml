@@ -1,9 +1,0 @@
-replicaCount: 2
-
-args:
-  - --kubelet-insecure-tls
-
-serviceAccount:
-  name: pod-service-account
-  annotations: 
-    eks.amazonaws.com/role-arn: "${module.iam_eks_role.iam_role_arn}"
