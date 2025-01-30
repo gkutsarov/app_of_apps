@@ -13,6 +13,8 @@ spec:
     server: https://kubernetes.default.svc # In-cluster Kubernetes API
     namespace: guestbook
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated:
       prune: true # Removes deleted resources
       selfHeal: true # Fixes drift automatically
