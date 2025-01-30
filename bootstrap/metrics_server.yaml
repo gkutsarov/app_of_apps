@@ -9,8 +9,6 @@ spec:
     - repoURL: https://kubernetes-sigs.github.io/metrics-server/
       targetRevision: 3.10.0
       chart: metrics-server
-      helm:
-        valuesFile: ../metrics_server/values.yaml  # Point to the values file here
   destination:
     server: https://kubernetes.default.svc
     namespace: metrics-server
