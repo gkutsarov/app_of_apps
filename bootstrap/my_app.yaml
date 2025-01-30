@@ -5,10 +5,10 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  sources:
-    - repoURL: https://github.com/gkutsarov/app_of_apps/
-      targetRevision: main
-      chart: my_app/charts/
+  source:
+    repoURL: https://github.com/gkutsarov/app_of_apps/
+    targetRevision: main
+    path: my_app/charts/
   destination:
     server: https://kubernetes.default.svc
     namespace: my-app
