@@ -1,0 +1,20 @@
+apiVersion: argoproj.ioapiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my_app
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://github.com/gkutsarov/app_of_apps/my_app
+      targetRevision: 1.0.0
+      chart: k8s-resources
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: my_app
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
