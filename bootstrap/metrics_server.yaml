@@ -11,10 +11,10 @@ spec:
       chart: metrics-server
       helm:
         valuesFile:
-          - $values/values.yaml
+          - $metrics_server/values.yaml
     - repoURL: https://github.com/gkutsarov/app_of_apps.git
       targetRevision: main
-      path: values
+      path: metrics_server
   destination:
     server: https://kubernetes.default.svc
     namespace: metrics-server
