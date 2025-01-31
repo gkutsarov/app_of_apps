@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/gkutsarov/app_of_apps/
+    repoURL: https://github.com/gkutsarov/app_of_apps/my_app/
     targetRevision: main
-    path: my_app/charts
+    path: charts
   destination:
     server: https://kubernetes.default.svc
     namespace: my-app
