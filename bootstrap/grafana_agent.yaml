@@ -6,8 +6,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://grafana.github.io/helm-charts'
-    chart: 'grafana-agent'
+    repoURL: https://grafana.github.io/helm-charts/
+    chart: grafana-agent
     targetRevision: 0.44.2
     helm:
       values: |
