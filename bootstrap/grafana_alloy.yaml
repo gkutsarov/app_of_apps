@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://grafana.github.io/helm-charts
+    repoURL: https://grafana.github.io/helm-charts.git
     chart: grafana/alloy  # Grafana Alloy Helm chart
-    targetRevision: 8.8.6
+    targetRevision: main
   destination:
     namespace: monitoring  # Replace with the namespace you want (e.g., "alloy")
     server: https://kubernetes.default.svc
