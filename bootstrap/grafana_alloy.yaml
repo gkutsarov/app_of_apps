@@ -6,14 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://grafana.github.io/helm-charts'
-    chart: 'alloy'  # Grafana Alloy Helm chart
-    targetRevision: latest
-    helm:
-      values: |
-        createNamespace: true
-        serviceMonitor:
-          enabled: true
+    repoURL: https://grafana.github.io/helm-charts
+    chart: alloy  # Grafana Alloy Helm chart
+    targetRevision: 8.8.6
   destination:
     namespace: monitoring  # Replace with the namespace you want (e.g., "alloy")
     server: https://kubernetes.default.svc
