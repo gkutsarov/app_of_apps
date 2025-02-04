@@ -60,6 +60,8 @@ spec:
           annotations:
             "eks.amazonaws.com/role-arn": "arn:aws:iam::905418146175:role/eks_admin_role"
         deploymentMode: Distributed
+        rbac:
+          pspEnabled: false
         ingester:
           replicas: 1
           persistence:
