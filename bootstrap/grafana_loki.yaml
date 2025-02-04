@@ -58,7 +58,7 @@ spec:
         serviceAccount:
           create: true
           annotations:
-            "eks.amazonaws.com/role-arn": "arn:aws:iam::905418146175:role/eks_admin_role"
+            "eks.amazonaws.com/role-arn": "arn:aws:iam::905418146175:role/loki-service-account-role"
         deploymentMode: Distributed
         rbac:
           pspEnabled: false
