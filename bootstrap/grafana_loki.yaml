@@ -24,7 +24,7 @@ spec:
           storage_config:
             aws:
               region: us-west-2
-              bucketnames: loki-log-chunks-8e4g2v
+              bucketnames: loki-log-chunks-d3vde8
               s3forcepathstyle: false
           ingester:
             chunk_encoding: snappy
@@ -43,7 +43,7 @@ spec:
               type: s3
               s3:
                 region: us-west-2
-                bucketnames: loki-alert-rules-8e4g2v
+                bucketnames: loki-alert-rules-d3vde8
                 s3forcepathstyle: false
               alertmanager_url: http://prom:9093
           querier:
@@ -51,8 +51,8 @@ spec:
           storage:
             type: s3
             bucketNames:
-              chunks: "loki-log-chunks-8e4g2v"
-              ruler: "loki-alert-rules-8e4g2v"
+              chunks: "loki-log-chunks-d3vde8"
+              ruler: "loki-alert-rules-d3vde8"
             s3:
               region: us-west-2
         serviceAccount:
