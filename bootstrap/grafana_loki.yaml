@@ -119,39 +119,35 @@ spec:
             alb.ingress.kubernetes.io/ingress.class: alb
             alb.ingress.kubernetes.io/target-type: ip
             alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
-          spec:
-            ingressClassName: alb
-            rules:
-              - http
-                  paths:
-                    - path: /api/prom/push
-                      pathType: Prefix
-                      backend:
-                        service:
-                          name: loki-distributor
-                          port:
-                            number: 3100
-                    - path: /api/prom/tail
-                      pathType: Prefix
-                      backend:
-                        service:
-                          name: loki-querier
-                          port:
-                            number: 3100
-                    - path: /loki/api
-                      pathType: Prefix
-                      backend:
-                        service:
-                          name: loki-query-frontend
-                          port:
-                            number: 3100
-                    - path: /api/prom/rules
-                      pathType: Prefix
-                      backend:
-                        service:
-                          name: loki-ruler
-                          port:
-                            number: 3100
+          paths:
+            - path: /api/prom/push
+              pathType: Prefix
+              backend:
+                service:
+                  name: loki-distributor
+                  port:
+                    number: 3100
+            - path: /api/prom/tail
+              pathType: Prefix
+              backend:
+                service:
+                  name: loki-querier
+                  port:
+                    number: 3100
+            - path: /loki/api
+              pathType: Prefix
+              backend:
+                service:
+                  name: loki-query-frontend
+                  port:
+                    number: 3100
+            - path: /api/prom/rules
+              pathType: Prefix
+              backend:
+                service:
+                  name: loki-ruler
+                  port:
+                    number: 3100
         lokiCanary:
           extraArgs:
             - -pass=$(LOKI_PASS)
@@ -167,7 +163,6 @@ spec:
                 secretKeyRef:
                   name: canary-loki-auth
                   key: username
-
   destination:
     namespace: loki
     server: https://kubernetes.default.svc
