@@ -110,16 +110,23 @@ spec:
               - ReadWriteOnce
             size: 1Gi
         gateway:
-          service:
-            type: LoadBalancer
-            annotations:
-              alb.ingress.kubernetes.io/scheme: internet-facing
-              alb.ingress.kubernetes.io/ingress.class: alb
-              alb.ingress.kubernetes.io/target-type: ip
-              alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
-          basicAuth:
-            enabled: true
-            existingSecret: loki-auth
+          enabled: false
+        ingress:
+          enabled: true
+          name: loki-ingress
+          annotations:
+            alb.ingress.kubernetes.io/scheme: internet-facing
+            alb.ingress.kubernetes.io/ingress.class: alb
+            alb.ingress.kubernetes.io/target-type: ip
+            alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+          paths:
+            - path: /
+              pathType: Prefix
+              backend:
+                service:
+                  name: grafana-loki
+                  port:
+                    number: 3100
         lokiCanary:
           extraArgs:
             - -pass=$(LOKI_PASS)
