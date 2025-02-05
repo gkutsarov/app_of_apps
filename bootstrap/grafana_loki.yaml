@@ -64,28 +64,28 @@ spec:
         rbac:
           pspEnabled: false
         ingester:
-          replicas: 1
+          replicas: 3
           persistence:
             storageClass: gp3
             accessModes:
               - ReadWriteOnce
             size: 1Gi
         querier:
-          replicas: 1
-          maxUnavailable: 1
+          replicas: 3
+          maxUnavailable: 2
           persistence:
             storageClass: gp3
             accessModes:
               - ReadWriteOnce
             size: 1Gi
         queryFrontend:
-          replicas: 1
+          replicas: 2
           maxUnavailable: 1
         queryScheduler:
-          replicas: 1
+          replicas: 2
         distributor:
-          replicas: 1
-          maxUnavailable: 1
+          replicas: 3
+          maxUnavailable: 2
         compactor:
           replicas: 1
           persistence:
@@ -94,7 +94,7 @@ spec:
               - ReadWriteOnce
             size: 1Gi
         indexGateway:
-          replicas: 1
+          replicas: 2
           maxUnavailable: 1
           persistence:
             storageClass: gp3
@@ -141,33 +141,4 @@ spec:
                   name: loki-query-frontend
                   port:
                     number: 3100
-            - path: /api/prom/rules
-              pathType: Prefix
-              backend:
-                service:
-                  name: loki-ruler
-                  port:
-                    number: 3100
-        lokiCanary:
-          extraArgs:
-            - -pass=$(LOKI_PASS)
-            - -user=$(LOKI_USER)
-          extraEnv:
-            - name: LOKI_PASS
-              valueFrom:
-                secretKeyRef:
-                  name: canary-loki-auth
-                  key: password
-            - name: LOKI_USER
-              valueFrom:
-                secretKeyRef:
-                  name: canary-loki-auth
-                  key: username
-  destination:
-    namespace: loki
-    server: https://kubernetes.default.svc
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
 
