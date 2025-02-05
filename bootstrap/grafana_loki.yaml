@@ -113,25 +113,45 @@ spec:
           enabled: false
         ingress:
           enabled: true
-          ingressClassName: alb
+          name: loki-ingress
           annotations:
             alb.ingress.kubernetes.io/scheme: internet-facing
+            alb.ingress.kubernetes.io/ingress.class: alb
             alb.ingress.kubernetes.io/target-type: ip
             alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
-          paths:
-            distributor:
-              - /api/prom/push
-              - /loki/api/v1/push
-            querier:
-              - /api/prom/tail
-              - /loki/api/v1/tail
-            query-frontend:
-              - /loki/api
-            ruler:
-              - /api/prom/rules
-              - /loki/api/v1/rules
-              - /prometheus/api/v1/rules
-              - /prometheus/api/v1/alerts
+          spec:
+            ingressClassName: alb
+            rules:
+              - http
+                  paths:
+                    - path: /api/prom/push
+                      pathType: Prefix
+                      backend:
+                        service:
+                          name: loki-distributor
+                          port:
+                            number: 3100
+                    - path: /api/prom/tail
+                      pathType: Prefix
+                      backend:
+                        service:
+                          name: loki-querier
+                          port:
+                            number: 3100
+                    - path: /loki/api
+                      pathType: Prefix
+                      backend:
+                        service:
+                          name: loki-query-frontend
+                          port:
+                            number: 3100
+                    - path: /api/prom/rules
+                      pathType: Prefix
+                      backend:
+                        service:
+                          name: loki-ruler
+                          port:
+                            number: 3100
         lokiCanary:
           extraArgs:
             - -pass=$(LOKI_PASS)
