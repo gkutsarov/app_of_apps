@@ -141,4 +141,33 @@ spec:
                   name: loki-query-frontend
                   port:
                     number: 3100
+            - path: /api/prom/rules
+              pathType: Prefix
+              backend:
+                service:
+                  name: loki-ruler
+                  port:
+                    number: 3100
+        lokiCanary:
+          extraArgs:
+            - -pass=$(LOKI_PASS)
+            - -user=$(LOKI_USER)
+          extraEnv:
+            - name: LOKI_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: canary-loki-auth
+                  key: password
+            - name: LOKI_USER
+              valueFrom:
+                secretKeyRef:
+                  name: canary-loki-auth
+                  key: username
+  destination:
+    namespace: loki
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
 
