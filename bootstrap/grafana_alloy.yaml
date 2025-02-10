@@ -10,7 +10,7 @@ spec:
     chart: alloy
     targetRevision: 0.11.0
   destination:
-    namespace: monitoring  # Replace with the namespace you want (e.g., "alloy")
+    namespace: alloy  # Replace with the namespace you want (e.g., "alloy")
     server: https://kubernetes.default.svc
   syncPolicy:
     syncOptions:
