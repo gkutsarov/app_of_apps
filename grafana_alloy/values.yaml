@@ -1,0 +1,39 @@
+receivers:
+  filelog:
+    include: ["/var/log/containers/*.log"]
+    start_at: beginning
+
+processors:
+  resource:
+    attributes:
+      - key: k8s.pod.name
+        from_attribute: k8s.pod.name
+  batch:
+    timeout: 5s
+    send_batch_size: 50
+
+exporters:
+  file:
+    path: "/tmp/alloy_logs.json"
+
+service:
+  pipelines:
+    logs:
+      receivers: [filelog]
+      processors: [batch, resource]
+      exporters: [file]
+
+observers:
+  k8s_observer:
+    auth_type: serviceAccount
+
+volumes:
+  - name: var-log-containers
+    hostPath:
+      path: /var/log/containers
+      type: Directory
+
+volumeMounts:
+  - name: var-log-containers
+    mountPath: /var/log/containers
+
