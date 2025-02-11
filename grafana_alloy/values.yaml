@@ -1,0 +1,30 @@
+receivers:
+  filelog:
+    include: ["/var/log/containers/*.log"]  # Collect all logs from containers
+    exclude: []  # You can specify exclusions if needed
+    operators: []  # Optional, you can specify regex to filter logs
+
+processors:
+  resource:
+    attributes:
+      - key: k8s.pod.name
+        from_attribute: k8s.container.name  # Associate logs with Kubernetes pod names
+  batch:
+    timeout: 5s
+    send_batch_size: 50
+
+exporters:
+  file:
+    path: "/var/tmp/alloy_logs.json"  # Save collected logs to a local file
+
+service:
+  pipelines:
+    logs:
+      receivers: [filelog]  # Use the filelog receiver for logs
+      processors: [batch, resource]  # Apply processors to enrich logs
+      exporters: [file]  # Export logs to the file
+
+observers:
+  k8s_observer:
+    auth_type: serviceAccount  # Use the service account for authentication
+
