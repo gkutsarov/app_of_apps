@@ -12,7 +12,8 @@ spec:
       helm:
         valueFiles:
           - $values/values.yaml
-    - repoURL: 'https://github.com/gkutsarov/app_of_apps/grafana_alloy'
+    - repoURL: https://github.com/gkutsarov/app_of_apps
+      path: grafana_alloy
       targetRevision: main
       ref: values
   destination:
