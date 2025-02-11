@@ -1,8 +1,7 @@
 receivers:
   filelog:
     include: ["/var/log/containers/*.log"]  # Collect all logs from containers
-    exclude: []  # You can specify exclusions if needed
-    operators: []  # Optional, you can specify regex to filter logs
+    start_at: beginning
 
 processors:
   resource:
