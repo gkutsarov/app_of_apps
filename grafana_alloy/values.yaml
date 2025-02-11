@@ -1,29 +1,41 @@
-receivers:
-  filelog:
-    include: ["/var/log/containers/*.log"]  # Collect all logs from containers
-    start_at: beginning
+alloy:
+  configMap:
+    content: |-
+      logging {
+        level  = "info"
+        format = "logfmt"
+        output {
+          file = "/var/log/all_pod_logs.log" # Update path as needed
+        }
+      }
 
-processors:
-  resource:
-    attributes:
-      - key: k8s.pod.name
-        from_attribute: k8s.container.name  # Associate logs with Kubernetes pod names
-  batch:
-    timeout: 5s
-    send_batch_size: 50
+      discovery.kubernetes "kubernetes_pods" {
+        role = "pod"
+      }
 
-exporters:
-  file:
-    path: "/var/tmp/alloy_logs.json"  # Save collected logs to a local file
+      discovery.relabel "kubernetes_pods" {
+        targets = discovery.kubernetes.kubernetes_pods.targets
 
-service:
-  pipelines:
-    logs:
-      receivers: [filelog]  # Use the filelog receiver for logs
-      processors: [batch, resource]  # Apply processors to enrich logs
-      exporters: [file]  # Export logs to the file
+        rule {
+          source_labels = ["__meta_kubernetes_pod_annotation_prometheus_io_scrape"]
+          regex         = "true"
+          action        = "keep"
+        }
 
-observers:
-  k8s_observer:
-    auth_type: serviceAccount  # Use the service account for authentication
+        rule {
+          source_labels = ["__meta_kubernetes_namespace"]
+          target_label  = "namespace"
+        }
+
+        rule {
+          source_labels = ["__meta_kubernetes_pod_name"]
+          target_label  = "pod"
+        }
+
+        rule {
+          source_labels = ["__meta_kubernetes_pod_phase"]
+          regex         = "Running"
+          action        = "keep"
+        }
+      }
 
