@@ -4,10 +4,7 @@ alloy:
       logging {
         level  = "info"
         format = "logfmt"
-        output {
-          file = "/tmp/alloy/all_pod_logs.log" # Update path as needed
         }
-      }
 
       discovery.kubernetes "kubernetes_pods" {
         role = "pod"
