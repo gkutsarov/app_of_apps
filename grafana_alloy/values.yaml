@@ -5,7 +5,7 @@ alloy:
         level  = "info"
         format = "logfmt"
         output {
-          file = "/var/log/all_pod_logs.log" # Update path as needed
+          file = "/tmp/all_pod_logs.log" # Update path as needed
         }
       }
 
