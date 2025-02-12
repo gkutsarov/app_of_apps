@@ -1,10 +1,22 @@
+nameOverride: null
+fullnameOverride: null
+
+global:
+  image:
+    registry: ""
+    pullSecrets: []
+
+crds:
+  create: true
+
 alloy:
   configMap:
+    create: true
     content: |-
       logging {
         level  = "debug"
         format = "logfmt"
-        }
+      }
 
       discovery.kubernetes "kubernetes_pods" {
         role = "pod"
@@ -14,8 +26,8 @@ alloy:
         targets = discovery.kubernetes.kubernetes_pods.targets
 
         rule {
-          source_labels = ["__meta_kubernetes_pod_annotation_prometheus_io_scrape"]
-          regex         = "true"
+          source_labels = ["__meta_kubernetes_pod_phase"]
+          regex         = "Running"
           action        = "keep"
         }
 
@@ -28,13 +40,161 @@ alloy:
           source_labels = ["__meta_kubernetes_pod_name"]
           target_label  = "pod"
         }
-
-        rule {
-          source_labels = ["__meta_kubernetes_pod_phase"]
-          regex         = "Running"
-          action        = "keep"
-        }
       }
+
+      loki.source.kubernetes "logs" {
+        targets = discovery.relabel.kubernetes_pods.output
+        node    = env("HOSTNAME")
+
+        forward_to = [loki.write.local]
+      }
+
+      loki.write "local" {
+        path = "/var/log/alloy-logs"
+      }
+
+  clustering:
+    enabled: false
+    name: ""
+    portName: http
+
+  stabilityLevel: "generally-available"
+  storagePath: /var/log/alloy
+  listenAddr: 0.0.0.0
+  listenPort: 12345
+  listenScheme: HTTP
+  uiPathPrefix: /
+  enableReporting: true
+
+  extraEnv:
+    - name: HOSTNAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+
   mounts:
-    varlog: false
-    dockercontainers: true  
+    varlog: true
+    dockercontainers: true
+    extra:
+      - name: log-storage
+        mountPath: /var/log/alloy-logs
+
+  securityContext: {}
+
+  resources: {}
+
+  lifecycle: {}
+
+image:
+  registry: "docker.io"
+  repository: grafana/alloy
+  tag: null
+  digest: null
+  pullPolicy: IfNotPresent
+  pullSecrets: []
+
+rbac:
+  create: true
+
+serviceAccount:
+  create: true
+  additionalLabels: {}
+  annotations: {}
+  name: null
+
+configReloader:
+  enabled: true
+  image:
+    registry: "ghcr.io"
+    repository: jimmidyson/configmap-reload
+    tag: v0.14.0
+    digest: ""
+  customArgs: []
+  resources:
+    requests:
+      cpu: "1m"
+      memory: "5Mi"
+  securityContext: {}
+
+controller:
+  type: 'daemonset'
+  replicas: 1
+  extraAnnotations: {}
+  parallelRollout: true
+  hostNetwork: false
+  hostPID: false
+  dnsPolicy: ClusterFirst
+  terminationGracePeriodSeconds: null
+  updateStrategy: {}
+
+  nodeSelector: {}
+  tolerations: []
+  topologySpreadConstraints: []
+  priorityClassName: ''
+  podAnnotations: {}
+  podLabels: {}
+
+  podDisruptionBudget:
+    enabled: false
+    minAvailable: null
+    maxUnavailable: null
+
+  enableStatefulSetAutoDeletePVC: false
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 0
+    targetMemoryUtilizationPercentage: 80
+    scaleDown:
+      policies: []
+      selectPolicy: Max
+      stabilizationWindowSeconds: 300
+    scaleUp:
+      policies: []
+      selectPolicy: Max
+      stabilizationWindowSeconds: 0
+
+  affinity: {}
+
+  volumes:
+    extra:
+      - name: log-storage
+        emptyDir: {}
+
+  volumeClaimTemplates: []
+
+  initContainers: []
+  extraContainers: []
+
+service:
+  enabled: true
+  type: ClusterIP
+  nodePort: 31128
+  clusterIP: ''
+  internalTrafficPolicy: Cluster
+  annotations: {}
+
+serviceMonitor:
+  enabled: false
+  additionalLabels: {}
+  interval: ""
+  metricRelabelings: []
+  tlsConfig: {}
+  relabelings: []
+
+ingress:
+  enabled: false
+  annotations: {}
+  labels: {}
+  path: /
+  faroPort: 12347
+  pathType: Prefix
+  hosts:
+    - chart-example.local
+  extraPaths: []
+  tls: []
+
+extraObjects: []
+
