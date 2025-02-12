@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: grafana-alloy
+  name: grafana-loki
   namespace: argocd
 spec:
   project: default
@@ -16,7 +16,7 @@ spec:
       path: grafana_loki
       targetRevision: main
   destination:
-    namespace: alloy  # Replace with the namespace you want (e.g., "alloy")
+    namespace: loki  # Replace with the namespace you want (e.g., "alloy")
     server: https://kubernetes.default.svc
   syncPolicy:
     syncOptions:
