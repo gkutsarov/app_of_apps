@@ -35,4 +35,6 @@ alloy:
           action        = "keep"
         }
       }
-
+  mounts:
+    varlog: false
+    dockercontainers: true  
