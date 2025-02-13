@@ -1,0 +1,8 @@
+alloy:
+  configMap:
+    content: |
+      loki.write "loki" {
+        endpoint {
+          url       = "http://loki-gateway.loki/loki/api/v1/push"
+        }
+}
