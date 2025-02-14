@@ -5,4 +5,14 @@ alloy:
         endpoint {
           url       = "http://loki-gateway.loki/loki/api/v1/push"
         }
-}
+      }
+      
+      loki.source.kubernetes "default" {
+        targets    = discovery.kubernetes.pods.targets
+        forward_to = [loki.write.loki.receiver]
+      }
+
+      discovery.kubernetes "pods" {
+        role = "pod"
+      }
+

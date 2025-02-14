@@ -13,7 +13,7 @@ loki:
   storage_config:
     aws:
       region: us-west-2
-      bucketnames: 'loki-log-chunks-2xqzes'
+      bucketnames: 'loki-log-chunks-rexjxf'
       s3forcepathstyle: false
   pattern_ingester:
       enabled: true
@@ -25,8 +25,8 @@ loki:
   storage:
     type: s3
     bucketNames:
-        chunks: 'loki-log-chunks-2xqzes'
-        ruler: 'loki-alert-rules-2xqzes'
+        chunks: 'loki-log-chunks-rexjxf'
+        ruler: 'loki-alert-rules-rexjxf'
 
 # Disable minio storage
 minio:
@@ -69,6 +69,16 @@ bloomCompactor:
 bloomGateway:
   replicas: 0
 
+chunksCache:
+  allocatedMemory: 512
+singleBinary:
+  replicas: 1
+read:
+  replicas: 0
+backend:
+  replicas: 0
+write:
+  replicas: 0
 
 serviceAccount:
   create: true
