@@ -1,34 +1,29 @@
 alloy:
   configMap:
     content: |
-      discovery.kubernetes "pod" {
-        role = "pod"
-      }
-
-      loki.source.kubernetes "homelab" {
-        targets    = discovery.kubernetes.pod.targets
-        forward_to = [loki.write.default.receiver]
-      }
-
-      loki.process "pod_logs" {
-        stage.static_labels {
-          values = {
-            cluster = "aws-eks"  // Replace with your EKS cluster name or identifier
-          }
-        }
-        forward_to = [loki.write.default.receiver]
-      }
-
       loki.write "default" {
         endpoint {
-          url       = "http://loki-gateway.loki.svc.cluster.local/loki/api/v1/push"
-          tenant_id = "tenant1"  // Optional: Add a tenant ID if using multi-tenancy
+          url       = "http://loki-gateway.monitoring/loki/api/v1/push"
+          tenant_id = "tenant1"
         }
         external_labels = {}
       }
 
+      loki.source.kubernetes "homelab" {
+        targets    = discovery.kubernetes.pods.targets
+        forward_to = [loki.write.default.receiver]
+      }
+      
       logging {
         level  = "debug"
         format = "logfmt"
+      }
+
+      discovery.kubernetes "pods" {
+        role = "pod"
+      }
+      
+      discovery.kubernetes "nodes" {
+        role = "node"
       }
 
