@@ -3,10 +3,10 @@ alloy:
     content: |
       loki.write "loki" {
         endpoint {
-          url       = "http://loki-gateway.loki/loki/api/v1/push"
+          url = "http://loki-gateway.loki.svc.cluster.local/loki/api/v1/push"
         }
       }
-      
+
       loki.source.kubernetes "default" {
         targets    = discovery.kubernetes.pods.targets
         forward_to = [loki.write.loki.receiver]
