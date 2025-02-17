@@ -1,4 +1,5 @@
 loki:
+  auth_enabled: false
   commonConfig:
     replication_factor: 1
   schemaConfig:
@@ -10,21 +11,37 @@ loki:
         index:
           prefix: loki_index_
           period: 24h
+  storage_config:
+    aws:
+      region: us-west-2
+      bucketnames: 'loki-log-chunks-hiwxcy'
+      s3forcepathstyle: false
   pattern_ingester:
       enabled: true
   limits_config:
     allow_structured_metadata: true
     volume_enabled: true
-  ruler:
-    enable_api: true
+    retention_period: 672h # 28 days retention
 
+  storage:
+    type: s3
+    bucketNames:
+        chunks: 'loki-log-chunks-hiwxcy'
+        ruler: 'loki-alert-rules-hiwxcy'
+
+# Disable minio storage
 minio:
-  enabled: true
-      
+  enabled: false
+
 deploymentMode: SingleBinary
 
 singleBinary:
   replicas: 1
+  persistence:
+    storageClass: gp2
+    accessModes:
+      - ReadWriteOnce
+    size: 5Gi
 
 # Zero out replica counts of other deployment modes
 backend:
@@ -52,3 +69,9 @@ bloomCompactor:
   replicas: 0
 bloomGateway:
   replicas: 0
+
+serviceAccount:
+  create: true
+  name: loki
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::905418146175:role/loki-service-account-role 
