@@ -4,6 +4,7 @@ alloy:
       loki.write "loki" {
         endpoint {
           url = "http://loki-gateway.loki.svc.cluster.local/loki/api/v1/push"
+          tenant_id = "tenant1"
         }
       }
 
@@ -11,6 +12,12 @@ alloy:
         targets    = discovery.kubernetes.pods.targets
         forward_to = [loki.write.loki.receiver]
       }
+
+      logging {
+        level = "debug"
+        format = "logfmt"
+      }
+
 
       discovery.kubernetes "pods" {
         role = "pod"
