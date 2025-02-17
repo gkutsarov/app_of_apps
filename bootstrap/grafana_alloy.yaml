@@ -10,8 +10,36 @@ spec:
       chart: alloy
       targetRevision: 0.11.0
       helm:
-        valueFiles:
-          - values.yaml
+        values: |
+          alloy:
+            configMap:
+              create: true
+              content: |
+                loki.write "default" {
+                  endpoint {
+                    url       = "http://loki-gateway.monitoring/loki/api/v1/push"
+                    tenant_id = "tenant1"
+                  }
+                  external_labels = {}
+                }
+
+                loki.source.kubernetes "homelab" {
+                  targets    = discovery.kubernetes.pods.targets
+                  forward_to = [loki.write.default.receiver]
+                }
+
+                logging {
+                  level  = "debug"
+                  format = "logfmt"
+                }
+
+                discovery.kubernetes "pods" {
+                  role = "pod"
+                }
+
+                discovery.kubernetes "nodes" {
+                  role = "node"
+                }
     - repoURL: https://github.com/gkutsarov/app_of_apps
       path: grafana_alloy
       targetRevision: main
