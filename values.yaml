@@ -31,12 +31,12 @@ loki:
 deploymentMode: SingleBinary
 
 singleBinary:
-  replicas: 1
+  replicas: 2
   persistence:
     storageClass: gp2
     accessModes:
       - ReadWriteOnce
-    size: 5Gi
+    size: 3Gi
 
 # Zero out replica counts of other deployment modes
 backend:
