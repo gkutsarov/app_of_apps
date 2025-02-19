@@ -35,6 +35,12 @@ spec:
                 volume_enabled: true
                 retention_period: 672h # 28 days retention
 
+            memcached:
+              chunk_cache:
+                enabled: false
+              results_cache:
+                enabled: false      
+
             storage:
               type: s3
               bucketNames:
