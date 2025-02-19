@@ -9,36 +9,6 @@ spec:
     - repoURL: https://grafana.github.io/helm-charts
       chart: alloy
       targetRevision: 0.11.0
-      helm:
-        values: |
-          alloy:
-            configMap:
-              create: true
-              content: |
-                loki.write "default" {
-                  endpoint {
-                    url       = "http://loki-gateway.loki.svc.cluster.local/loki/api/v1/push"
-                  }
-                  external_labels = {}
-                }
-
-                loki.source.kubernetes "homelab" {
-                  targets    = discovery.kubernetes.pods.targets
-                  forward_to = [loki.write.default.receiver]
-                }
-
-                logging {
-                  level  = "debug"
-                  format = "logfmt"
-                }
-
-                discovery.kubernetes "pods" {
-                  role = "pod"
-                }
-
-                discovery.kubernetes "nodes" {
-                  role = "node"
-                }
     - repoURL: https://github.com/gkutsarov/app_of_apps
       path: grafana_alloy
       targetRevision: main
