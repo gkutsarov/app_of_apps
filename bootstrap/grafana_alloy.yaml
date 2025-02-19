@@ -26,7 +26,6 @@ spec:
                 loki.source.kubernetes "homelab" {
                   targets    = discovery.kubernetes.pods.targets
                   forward_to = [loki.write.default.receiver]
-                  label_fields = ["namespace", "app"]
                 }
 
                 logging {
