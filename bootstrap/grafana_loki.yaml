@@ -84,7 +84,7 @@ spec:
             annotations:
               eks.amazonaws.com/role-arn: arn:aws:iam::905418146175:role/loki-service-account-role
   destination:
-    namespace: alloy  # Replace with the namespace you want (e.g., "alloy")
+    namespace: loki  # Replace with the namespace you want (e.g., "alloy")
     server: https://kubernetes.default.svc
   syncPolicy:
     syncOptions:
