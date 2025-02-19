@@ -29,7 +29,7 @@ spec:
                 }
 
                 logging {
-                  level  = "debug"
+                  level  = "info"
                   format = "logfmt"
                 }
 
