@@ -11,6 +11,21 @@ spec:
       targetRevision: 8.10.0
       helm:
         values: |
+          datasources:
+            datasources.yaml:
+              apiVersion: 1
+              datasources:
+                - name: Loki
+                  type: loki
+                  access: proxy
+                  isDefault: true
+                  url: http://grafana-loki-gateway.loki.svc.cluster.local/
+                  jsonData:
+                    maxLines: 1000
+                    httpHeaderName1: "X-Scope-OrgID"
+                  secureJsonData:
+                    httpHeaderValue1: "tenant1"
+
           dashboards:
             default:
               my-app-dashboard:
