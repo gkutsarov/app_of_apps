@@ -6,27 +6,41 @@ metadata:
 spec:
   project: default
   sources:
-    - repoURL: https://grafana.github.io/helm-charts
+    - repoURL: https://grafana.github.io/helm-charts  # Grafana Helm chart source
       chart: grafana
       targetRevision: 8.10.0
       helm:
         values: |
-          datasources:
-            datasources.yaml:
+          dashboardProviders:
+            dashboardproviders.yaml:
               apiVersion: 1
-              datasources:
-                - name: Loki
-                  type: loki
-                  access: proxy
-                  isDefault: true
-                  url: http://grafana-loki-gateway.loki.svc.cluster.local/
-                  jsonData:
-                    maxLines: 1000
-                    httpHeaderName1: "X-Scope-OrgID"
-                  secureJsonData:
-                    httpHeaderValue1: "tenant1"
+              providers:
+              - name: 'default'
+                orgId: 1
+                folder: ''
+                type: file
+                disableDeletion: false
+                editable: true
+                options:
+                  path: /var/lib/grafana/dashboards/default
+
+          dashboards:
+            default:
+              my-app-dashboard:
+                gnetId: 12345   # If from Grafana Labs, otherwise remove
+                file: /var/lib/grafana/dashboards/default/my_app_dashboard.json
+
+          sidecar:
+            dashboards:
+              enabled: true
+              label: grafana_dashboard
+              searchNamespace: grafana
+
+    - repoURL: https://github.com/gkutsarov/app_of_apps.git  # Your Git repository where dashboards exist
+      path: grafana_dashboards           # The folder in the Git repo containing dashboards
+      targetRevision: main
   destination:
-    namespace: grafana  # Replace with the namespace you want (e.g., "alloy")
+    namespace: grafana
     server: https://kubernetes.default.svc
   syncPolicy:
     syncOptions:
