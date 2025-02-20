@@ -9,6 +9,14 @@ spec:
     - repoURL: https://grafana.github.io/helm-charts
       chart: grafana
       targetRevision: 8.10.0
+      helm:
+        values: |
+          grafana:
+            sidecar:
+              dashboards:
+                enabled: true
+                label: grafana_dashboard
+                folder: /var/lib/grafana/dashboards
   destination:
     namespace: grafana  # Replace with the namespace you want (e.g., "alloy")
     server: https://kubernetes.default.svc
