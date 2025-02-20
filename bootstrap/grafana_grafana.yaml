@@ -20,6 +20,11 @@ spec:
                   access: proxy
                   isDefault: true
                   url: http://grafana-loki-gateway.loki.svc.cluster.local/
+                  jsonData:
+                    maxLines: 1000
+                    httpHeaderName1: "X-Scope-OrgID"
+                  secureJsonData:
+                    httpHeaderValue1: "tenant1"
   destination:
     namespace: grafana  # Replace with the namespace you want (e.g., "alloy")
     server: https://kubernetes.default.svc
