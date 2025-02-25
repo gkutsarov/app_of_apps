@@ -26,7 +26,7 @@ spec:
             storage_config:
               aws:
                 region: us-west-2
-                bucketnames: loki-log-chunks-vrzjph
+                bucketnames: loki-log-chunks-najj62
                 s3forcepathstyle: false
             pattern_ingester:
                 enabled: true
@@ -44,8 +44,8 @@ spec:
             storage:
               type: s3
               bucketNames:
-                chunks: loki-log-chunks-vrzjph
-                ruler: loki-alert-rules-vrzjph
+                chunks: loki-log-chunks-najj62
+                ruler: loki-alert-rules-najj62
 
           deploymentMode: SingleBinary
 
