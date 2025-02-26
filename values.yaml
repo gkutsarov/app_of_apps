@@ -2,7 +2,7 @@ prometheus:
   enabled: true
 
 server:
-  name: bobo
+  name: server
   persistentVolume:
     enabled: true
     accessModes:
@@ -12,8 +12,4 @@ server:
 
 alertmanager:
   persistence:
-    enabled: true
-  storageClass: gp2
-  accessModes:
-    - ReadWriteOnce
-  size: 500Mi
+    storageClass: gp2
