@@ -25,6 +25,11 @@ spec:
                     httpHeaderName1: "X-Scope-OrgID"
                   secureJsonData:
                     httpHeaderValue1: "tenant1"
+                
+                - name: Prometheus
+                  type: prometheus
+                  access: proxy
+                  url: http://prometheus-server.prometheus.svc.cluster.local
 
           dashboards:
             default:
