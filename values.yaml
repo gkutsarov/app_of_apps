@@ -1,0 +1,19 @@
+prometheus:
+  enabled: true
+
+server:
+  name: bobo
+  persistentVolume:
+    enabled: true
+    accessModes:
+      - ReadWriteOnce
+    size: 2Gi
+    storageClass: gp2
+
+alertmanager:
+  persistence:
+    enabled: true
+  storageClass: gp2
+  accessModes:
+    - ReadWriteOnce
+  size: 500Mi
