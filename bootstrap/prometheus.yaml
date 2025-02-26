@@ -15,7 +15,7 @@ spec:
             enabled: true
 
           server:
-            name: server:
+            name: server
             persistentVolume:
               enabled: true
               accessModes:
