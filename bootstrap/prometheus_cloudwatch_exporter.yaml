@@ -29,9 +29,7 @@ spec:
             metrics:
             - aws_namespace: AWS/ApplicationELB 
               aws_metric_name: HealthyHostCount
-              aws_dimensions: [AvailabilityZone, LoadBalancerName]
-              aws_dimension_select:
-                LoadBalancer: ["k8s-myapp-examplei-eea2b937e5"]
+              aws_dimensions: [AvailabilityZone, k8s-myapp-examplei-eea2b937e5]
               period_seconds: 60
               aws_statistics: [Average]
 
