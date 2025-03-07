@@ -29,6 +29,7 @@ spec:
              - aws_namespace: "AWS/ApplicationELB"
                aws_metric_name: "HealthyHostCount"
                aws_dimensions: ["LoadBalancer", "TargetGroup", "AvailabilityZone"]
+               aws_statistics: [Average]
 
             
             
