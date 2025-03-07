@@ -27,11 +27,15 @@ spec:
             region: eu-west-2
             period_seconds: 60
             metrics:
-            - aws_namespace: "AWS/ApplicationELB"
-              aws_dimensions: ["LoadBalancer"]
-              aws_metric_name: ["RequestCount"]
-              aws_statistics: ["Sum"]
-              loadbalancer_name: "k8s-myapp-examplei-eea2b937e5"
+            - aws_namespace: AWS/ApplicationELB 
+              aws_metric_name: HealthyHostCount
+              aws_dimensions: [usw2-az1, k8s-myapp-examplei-eea2b937e5]
+              aws_statistics: [Average]
+
+            - aws_namespace: AWS/ApplicationELB
+              aws_metric_name: RequestCount
+              aws_dimensions: [usw2-az1, k8s-myapp-examplei-eea2b937e5]
+              aws_statistics: [Sum]
 
             
             
