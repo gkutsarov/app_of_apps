@@ -25,13 +25,15 @@ spec:
           config: |-
             # This is the configuration for prometheus-cloudwatch-exporter
             region: eu-west-2
-            period_seconds: 240
+            period_seconds: 60
             metrics:
-            - aws_namespace: AWS/ApplicationELB 
-              aws_metric_name: HealthyHostCount
-              aws_dimensions: [AvailabilityZone, k8s-myapp-examplei-eea2b937e5]
-              period_seconds: 60
-              aws_statistics: [Average]
+            - aws_namespace: "AWS/ApplicationELB"
+              aws_dimensions: ["LoadBalancer"]
+              aws_metric_name: ["RequestCount", "HealthyHostCount", "UnHealthyHostCount", "TargetResponseTime", "TargetConnectionErrorCount", 
+                       "HTTPCode_ELB_4XX_Count", "HTTPCode_ELB_5XX_Count", "HTTPCode_Target_2XX_Count", "HTTPCode_Target_3XX_Count", 
+                       "HTTPCode_Target_4XX_Count", "HTTPCode_Target_5XX_Count"]
+              aws_statistics: ["Sum", "Average", "Maximum"]
+              loadbalancer_name: "k8s-myapp-examplei-eea2b937e5"
 
             
             
