@@ -25,6 +25,7 @@ spec:
           config: |-
             # This is the configuration for prometheus-cloudwatch-exporter
             region: eu-west-2
+            debug: true
             metrics:
              - aws_namespace: "AWS/ApplicationELB"
                aws_metric_name: "HealthyHostCount"
