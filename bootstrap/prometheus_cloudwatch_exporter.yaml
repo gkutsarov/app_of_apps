@@ -11,9 +11,7 @@ spec:
       targetRevision: 0.26.0
       helm:
         values: |
-          aws:
-            role: arn:aws:iam::905418146175:role/prometheus-cloudwatch-exporter-role
-
+          
           serviceAccount:
             annotations:
               eks.amazonaws.com/role-arn: arn:aws:iam::905418146175:role/prometheus-cloudwatch-exporter-role
@@ -23,7 +21,7 @@ spec:
             region: eu-west-2
             period_seconds: 240
             metrics:
-            - aws_namespace: AWS/ApplicationELB
+            - aws_namespace: AWS/ApplicationELB 
               aws_metric_name: HealthyHostCount
               aws_dimensions: [AvailabilityZone, LoadBalancerName]
               aws_statistics: [Average]
