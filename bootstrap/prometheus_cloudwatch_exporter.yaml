@@ -30,7 +30,7 @@ spec:
             - aws_namespace: "AWS/ApplicationELB"
               aws_dimensions: ["LoadBalancer"]
               aws_metric_name: ["RequestCount"]
-              aws_statistics: ["Sum", "Average", "Maximum"]
+              aws_statistics: ["Sum"]
               loadbalancer_name: "k8s-myapp-examplei-eea2b937e5"
 
             
