@@ -17,6 +17,8 @@ spec:
               enabled: true
 
           serviceAccount:
+            create: false
+            name: prometheus-cloudwatch-exporter
             annotations:
               eks.amazonaws.com/role-arn: arn:aws:iam::905418146175:role/prometheus-cloudwatch-exporter-role
 
