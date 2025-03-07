@@ -29,12 +29,12 @@ spec:
             metrics:
             - aws_namespace: AWS/ApplicationELB 
               aws_metric_name: HealthyHostCount
-              aws_dimensions: [usw2-az1, k8s-myapp-examplei-eea2b937e5]
+              aws_dimensions: [LoadBalancer, TargetGroup, AvailabilityZone]
               aws_statistics: [Average]
 
             - aws_namespace: AWS/ApplicationELB
               aws_metric_name: RequestCount
-              aws_dimensions: [usw2-az1, k8s-myapp-examplei-eea2b937e5]
+              aws_dimensions: [LoadBalancer]
               aws_statistics: [Sum]
 
             
