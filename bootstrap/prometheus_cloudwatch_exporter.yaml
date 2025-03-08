@@ -24,6 +24,7 @@ spec:
 
           config: |-
             # This is the configuration for prometheus-cloudwatch-exporter
+          cloudwatch:
             region: eu-west-2
             period_seconds: 60
             metrics:
