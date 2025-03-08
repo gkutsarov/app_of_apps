@@ -16,11 +16,7 @@ spec:
             stsRegional:
               enabled: true
 
-          serviceAccount:
-            create: true
-            name: prometheus-cloudwatch-exporter
-            annotations:
-              eks.amazonaws.com/role-arn: arn:aws:iam::905418146175:role/prometheus-cloudwatch-exporter-role
+          
 
           config: |-
             # This is the configuration for prometheus-cloudwatch-exporter
