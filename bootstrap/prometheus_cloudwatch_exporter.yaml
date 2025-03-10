@@ -12,8 +12,9 @@ spec:
       helm:
         values: |
           aws:
-            secret:
-              name: aws_credentials
+            role: arn:aws:iam::905418146175:role/prometheus-cloudwatch-exporter-role
+            stsRegional:
+              enabled: false
 
           serviceAccount:
             create: true
