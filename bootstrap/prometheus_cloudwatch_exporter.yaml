@@ -28,18 +28,49 @@ spec:
             period_seconds: 60
             metrics:
             - aws_namespace: "AWS/ApplicationELB"
-              aws_metric_name: "HealthyHostCount"
-              aws_dimensions: ["LoadBalancer", "TargetGroup", "AvailabilityZone"]
-              aws_statistics: ["Average"]
-              aws_dimension_select:
-                LoadBalancer: ["app/k8s-myapp-examplei-eea2b937e5/fe8e571650d42399"]
-
-            - aws_namespace: "AWS/ApplicationELB"
               aws_metric_name: "RequestCount"
               aws_dimensions: ["LoadBalancer"]
               aws_statistics: ["Sum"]
-              aws_dimension_select:
-                LoadBalancer: ["app/k8s-myapp-examplei-eea2b937e5/fe8e571650d42399"]
+
+            - aws_namespace: "AWS/ApplicationELB"
+              aws_metric_name: "TargetResponseTime"
+              aws_dimensions: ["LoadBalancer", "TargetGroup"]
+              aws_statistics: ["Average", "Maximum"]
+
+            - aws_namespace: "AWS/ApplicationELB"
+              aws_metric_name: "HTTPCode_Target_2XX_Count"
+              aws_dimensions: ["LoadBalancer", "TargetGroup"]
+              aws_statistics: ["Sum"]
+
+            - aws_namespace: "AWS/ApplicationELB"
+              aws_metric_name: "HTTPCode_Target_4XX_Count"
+              aws_dimensions: ["LoadBalancer", "TargetGroup"]
+              aws_statistics: ["Sum"]
+
+            - aws_namespace: "AWS/ApplicationELB"
+              aws_metric_name: "HTTPCode_Target_5XX_Count"
+              aws_dimensions: ["LoadBalancer", "TargetGroup"]
+              aws_statistics: ["Sum"]
+
+            - aws_namespace: "AWS/ApplicationELB"
+              aws_metric_name: "HealthyHostCount"
+              aws_dimensions: ["LoadBalancer", "TargetGroup", "AvailabilityZone"]
+              aws_statistics: ["Average"]
+
+            - aws_namespace: "AWS/ApplicationELB"
+              aws_metric_name: "UnHealthyHostCount"
+              aws_dimensions: ["LoadBalancer", "TargetGroup", "AvailabilityZone"]
+              aws_statistics: ["Average"]
+
+            - aws_namespace: "AWS/ApplicationELB"
+              aws_metric_name: "NewConnectionCount"
+              aws_dimensions: ["LoadBalancer"]
+              aws_statistics: ["Sum"]
+
+            - aws_namespace: "AWS/ApplicationELB"
+              aws_metric_name: "ActiveConnectionCount"
+              aws_dimensions: ["LoadBalancer"]
+              aws_statistics: ["Sum"]
                 
             
   destination:
