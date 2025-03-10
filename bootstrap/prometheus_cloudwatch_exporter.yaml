@@ -37,14 +37,10 @@ spec:
               aws_dimensions: ["LoadBalancer", "AvailabilityZone"]
               aws_statistics: ["Average"]
 
-            - aws_namespace: AWS/EC2
-              aws_metric_name: CPUUtilization
-              dimensions: [InstanceId]
-              statistics: [Average]
-              period_seconds: 300
-              range_seconds: 600
-              delay_seconds: 60
-              nil_to_zero: true
+            - aws_namespace: "AWS/ApplicationELB"
+              aws_metric_name: "Latency"
+              aws_dimensions: ["AvailabilityZone", "LoadBalancerName"]
+              aws_statistics: ["Average"]
 
             
   destination:
