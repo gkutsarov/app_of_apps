@@ -37,14 +37,6 @@ spec:
               aws_dimensions: ["LoadBalancer", "AvailabilityZone"]
               aws_statistics: ["Average"]
 
-            - aws_namespace: "AWS/EC2"
-              aws_metric_name: "CPUUtilization"
-              aws_dimensions: ["InstanceId"]
-              aws_dimension_select:
-                InstanceId: i-0e2815ee5aa5658d7
-              aws_statistics: [Average]
-              period_seconds: 60
-              range_seconds: 300
             
   destination:
     namespace: prometheus-cloudwatch-exporter  # Replace with the namespace you want (e.g., "alloy")
