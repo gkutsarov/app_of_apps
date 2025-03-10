@@ -31,17 +31,16 @@ spec:
               aws_metric_name: "HealthyHostCount"
               aws_dimensions: ["LoadBalancer", "TargetGroup", "AvailabilityZone"]
               aws_statistics: ["Average"]
+              aws_dimension_select:
+                LoadBalancer: ["app/k8s-myapp-examplei-eea2b937e5/fe8e571650d42399"]
 
             - aws_namespace: "AWS/ApplicationELB"
               aws_metric_name: "RequestCount"
-              aws_dimensions: ["LoadBalancer", "AvailabilityZone"]
-              aws_statistics: ["Average"]
-
-            - aws_namespace: "AWS/ApplicationELB"
-              aws_metric_name: "Latency"
-              aws_dimensions: ["AvailabilityZone", "LoadBalancerName"]
-              aws_statistics: ["Average"]
-
+              aws_dimensions: ["LoadBalancer"]
+              aws_statistics: ["Sum"]
+              aws_dimension_select:
+                LoadBalancer: ["app/k8s-myapp-examplei-eea2b937e5/fe8e571650d42399"]
+                
             
   destination:
     namespace: prometheus-cloudwatch-exporter  # Replace with the namespace you want (e.g., "alloy")
