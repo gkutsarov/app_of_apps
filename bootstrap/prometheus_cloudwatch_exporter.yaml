@@ -74,11 +74,11 @@ spec:
                 
             
   destination:
-    namespace: prometheus-cloudwatch-exporter  # Replace with the namespace you want (e.g., "alloy")
+    namespace: prometheus
     server: https://kubernetes.default.svc
   syncPolicy:
     syncOptions:
-      - CreateNamespace=true
+      - CreateNamespace=false
     automated:
       prune: true
       selfHeal: true
