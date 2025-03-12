@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debug-tools
+  namespace: prometheus
+  labels:
+    app: debug-tools
+spec:
+  containers:
+    - name: debug-tools
+      image: nicolaka/netshoot
+      command: ["sleep", "infinity"]
+      resources:
+        limits:
+          memory: 128Mi
+          cpu: 100m
+        requests:
+          memory: 64Mi
+          cpu: 50m
+
