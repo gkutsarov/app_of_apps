@@ -38,7 +38,7 @@ spec:
                   metrics_path: /metrics
                   static_configs:
                     - targets:
-                        - service.my-app.svc.cluster.local:80
+                        - my-app-service.my-app.svc.cluster.local:80
                   
 
             
