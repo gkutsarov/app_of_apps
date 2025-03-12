@@ -5,7 +5,7 @@ image:
   pullPolicy: IfNotPresent
 
 service:
-  name: service
+  name: my-app-service
   type: ClusterIP
   port: 80
 
