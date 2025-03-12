@@ -5,3 +5,18 @@ metadata:
 data:
   index.html: |
     {{- .Files.Get "files/index.html" | nindent 4 }}
+
+  default.conf: |
+    server {
+        listen 80;
+        server_name localhost;
+
+        location / {
+            root   /usr/share/nginx/html;
+            index  index.html index.htm;
+        }
+
+        location /metrics {
+            stub_status;
+        }
+    }
