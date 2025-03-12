@@ -35,7 +35,6 @@ spec:
                     - targets:
                         - prometheus-cloudwatch-exporter.prometheus.svc.cluster.local:9106
                 - job_name: nginx
-                  metrics_path: /metrics
                   static_configs:
                     - targets:
                         - my-app-service.my-app.svc.cluster.local:80
