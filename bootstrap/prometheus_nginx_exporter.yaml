@@ -11,7 +11,7 @@ spec:
       targetRevision: 1.0.1
       helm:
         values: |
-          nginxServer: "http://my-app-service.my-app.svc.cluster.local/stub_status"
+          nginxServer: "http://my-app-service.my-app.svc.cluster.local/metrics"
   destination:
     namespace: prometheus
     server: https://kubernetes.default.svc
