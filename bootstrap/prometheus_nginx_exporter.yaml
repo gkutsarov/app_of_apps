@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus-nginx-exporter
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://prometheus-community.github.io/helm-charts
+      chart: prometheus-nginx-exporter
+      targetRevision: 1.0.1
+      helm:
+        values: |
+          nginxServer: "http://my-app-service.my-app.svc.cluster.local:80/stub_status"
+  destination:
+    namespace: prometheus
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=false
+    automated:
+      prune: true
+      selfHeal: true
+
