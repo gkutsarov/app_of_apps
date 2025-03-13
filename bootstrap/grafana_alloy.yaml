@@ -41,7 +41,7 @@ spec:
                   role = "node"
                 }
   destination:
-    namespace: alloy  # Replace with the namespace you want (e.g., "alloy")
+    namespace: alloy
     server: https://kubernetes.default.svc
   syncPolicy:
     syncOptions:
