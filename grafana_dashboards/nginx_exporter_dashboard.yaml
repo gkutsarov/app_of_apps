@@ -3,9 +3,9 @@ kind: ConfigMap
 metadata:
   name: nginx-exporter-dashboard
   labels:
-    grafana_dashboard: "1"  # Grafana Sidecar will detect this
+    grafana_dashboard: "2"  # Grafana Sidecar will detect this
 data:
-  my_app_dashboard.json: |
+  nginx_exporter_dashboard.json: |
     {
       "annotations": {
         "list": [
