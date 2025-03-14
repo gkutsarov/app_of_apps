@@ -35,6 +35,8 @@ spec:
             default:
               my-app-dashboard:
                 file: /var/lib/grafana/dashboards/default/my_app_dashboard.json
+              nginx-exporter-dashboard:
+                file: /var/lib/grafana/dashboards/default/nginx_exporter_dashboard.yaml
           sidecar:
             dashboards:
               enabled: true

@@ -1,0 +1,109 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-exporter-dashboard
+  labels:
+    grafana_dashboard: "1"  # Grafana Sidecar will detect this
+data:
+  my_app_dashboard.json: |
+    {
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": {
+              "type": "datasource",
+              "uid": "grafana"
+            },
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "type": "dashboard"
+          }
+        ]
+      },
+      "description": "Official dashboard for NGINX Prometheus exporter for https://github.com/nginxinc/nginx-prometheus-exporter",
+      "editable": true,
+      "fiscalYearStartMonth": 0,
+      "graphTooltip": 0,
+      "id": 2,
+      "links": [],
+      "panels": [
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 0
+          },
+          "id": 4,
+          "panels": [],
+          "title": "Status",
+          "type": "row"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          ...
+        }
+        // (truncated here for brevity - rest remains indented at the same level)
+      ],
+      "preload": false,
+      "refresh": "5s",
+      "schemaVersion": 40,
+      "tags": [
+        "nginx",
+        "prometheus",
+        "nginx prometheus exporter"
+      ],
+      "templating": {
+        "list": [
+          {
+            "current": {
+              "text": "Prometheus",
+              "value": "PBFA97CFB590B2093"
+            },
+            "includeAll": false,
+            "label": "datasource",
+            "name": "DS_PROMETHEUS",
+            "options": [],
+            "query": "prometheus",
+            "refresh": 1,
+            "regex": "",
+            "type": "datasource"
+          },
+          {
+            "current": {
+              "text": "All",
+              "value": [
+                "$__all"
+              ]
+            },
+            "datasource": "PBFA97CFB590B2093",
+            "definition": "label_values(nginx_up, instance)",
+            "includeAll": true,
+            "multi": true,
+            "name": "instance",
+            "options": [],
+            "query": "label_values(nginx_up, instance)",
+            "refresh": 1,
+            "regex": "",
+            "type": "query"
+          }
+        ]
+      },
+      "time": {
+        "from": "now-15m",
+        "to": "now"
+      },
+      "timepicker": {},
+      "timezone": "",
+      "title": "NGINX exporter",
+      "uid": "MsjffzSZz",
+      "version": 3,
+      "weekStart": ""
+    }
