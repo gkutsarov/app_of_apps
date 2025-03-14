@@ -18,6 +18,5 @@ data:
 
         location /metrics {
             stub_status;
-            allow all;
         }
     }
